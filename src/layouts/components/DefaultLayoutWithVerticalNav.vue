@@ -1,8 +1,8 @@
 <script setup>
-import { useTheme } from 'vuetify'
 import VerticalNavSectionTitle from '@/@layouts/components/VerticalNavSectionTitle.vue'
 import VerticalNavLayout from '@layouts/components/VerticalNavLayout.vue'
 import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
+import { useTheme } from 'vuetify'
 
 // Components
 import Footer from '@/layouts/components/Footer.vue'
@@ -22,18 +22,12 @@ const upgradeBanner = computed(() => {
     <template #navbar="{ toggleVerticalOverlayNavActive }">
       <div class="d-flex h-100 align-center">
         <!-- 👉 Vertical nav toggle in overlay mode -->
-        <IconBtn
-          class="ms-n3 d-lg-none"
-          @click="toggleVerticalOverlayNavActive(true)"
-        >
+        <IconBtn class="ms-n3 d-lg-none" @click="toggleVerticalOverlayNavActive(true)">
           <VIcon icon="bx-menu" />
         </IconBtn>
 
         <!-- 👉 Search -->
-        <div
-          class="d-flex align-center cursor-pointer"
-          style="user-select: none;"
-        >
+        <div class="d-flex align-center cursor-pointer" style="user-select: none;">
           <!-- 👉 Search Trigger button -->
           <IconBtn>
             <VIcon icon="bx-search" />
@@ -41,7 +35,6 @@ const upgradeBanner = computed(() => {
 
           <span class="d-none d-md-flex align-center">
             <span class="me-3">Search</span>
-            <span class="meta-key">&#8984;K</span>
           </span>
         </div>
 
@@ -58,40 +51,26 @@ const upgradeBanner = computed(() => {
     </template>
 
     <template #vertical-nav-content>
-      <VerticalNavLink
-        :item="{
-          title: 'Dashboard',
-          icon: 'bx-home',
-          to: '/dashboard',
-        }"
-      />
+      <VerticalNavLink :item="{
+        title: 'Dashboard',
+        icon: 'bx-home',
+        to: '/dashboard',
+      }" />
       <!-- 👉 Pages -->
-      <VerticalNavSectionTitle
-        :item="{
-          heading: 'Pages',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Login',
-          icon: 'bx-log-in',
-          to: '/login',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Register',
-          icon: 'bx-user-plus',
-          to: '/register',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Error',
-          icon: 'bx-info-circle',
-          to: '/no-existence',
-        }"
-      />
+      <VerticalNavSectionTitle :item="{
+        heading: 'Pages',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Login',
+        icon: 'bx-log-in',
+        to: '/login',
+      }" />
+
+      <VerticalNavLink :item="{
+        title: 'Error',
+        icon: 'bx-info-circle',
+        to: '/no-existence',
+      }" />
     </template>
     <!-- 👉 Pages -->
     <slot />
@@ -102,14 +81,3 @@ const upgradeBanner = computed(() => {
     </template>
   </VerticalNavLayout>
 </template>
-
-<style lang="scss" scoped>
-.meta-key {
-  border: thin solid rgba(var(--v-border-color), var(--v-border-opacity));
-  border-radius: 6px;
-  block-size: 1.5625rem;
-  line-height: 1.3125rem;
-  padding-block: 0.125rem;
-  padding-inline: 0.25rem;
-}
-</style>

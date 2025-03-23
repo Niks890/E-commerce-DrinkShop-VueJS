@@ -1,5 +1,5 @@
 <script setup>
-import logo from '@images/logo.webp'
+import logo from '@images/logo.webp';
 
 const form = ref({
   email: '',
@@ -63,9 +63,8 @@ const isPasswordVisible = ref(false)
 
             <!-- create account -->
             <VCol cols="12" class="text-center text-base">
-              <span>New on our platform?</span>
-              <RouterLink class="text-primary ms-2" to="/register">
-                Create an account
+              <RouterLink class="text-primary ms-2 text-decoration-underline" to="/">
+                Về trang chủ
               </RouterLink>
             </VCol>
           </VRow>
