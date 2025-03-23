@@ -56,16 +56,6 @@ import wallet from '@images/cards/wallet-info.png'
       </VRow>
     </VCol>
 
-    <!-- 👉 Total Revenue -->
-    <VCol
-      cols="12"
-      md="8"
-      order="2"
-      order-md="1"
-    >
-      <AnalyticsTotalRevenue />
-    </VCol>
-
     <VCol
       cols="12"
       sm="8"
@@ -104,46 +94,7 @@ import wallet from '@images/cards/wallet-info.png'
           />
         </VCol>
       </VRow>
-
-      <VRow>
-        <!-- 👉 Profit Report -->
-        <VCol
-          cols="12"
-          sm="12"
-        >
-          <AnalyticsProfitReport />
-        </VCol>
-      </VRow>
-    </VCol>
-
-    <!-- 👉 Order Statistics -->
-    <VCol
-      cols="12"
-      md="4"
-      sm="6"
-      order="3"
-    >
-      <AnalyticsOrderStatistics />
-    </VCol>
-
-    <!-- 👉 Tabs chart -->
-    <VCol
-      cols="12"
-      md="4"
-      sm="6"
-      order="3"
-    >
-      <AnalyticsFinanceTabs />
-    </VCol>
-
-    <!-- 👉 Transactions -->
-    <VCol
-      cols="12"
-      md="4"
-      sm="6"
-      order="3"
-    >
-      <AnalyticsTransactions />
     </VCol>
   </VRow>
 </template>
+

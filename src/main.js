@@ -10,15 +10,15 @@ import '@styles/styles.scss'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 
+import { message } from 'ant-design-vue'
+// font
 loadFonts()
-
 
 // Create vue app
 const app = createApp(App)
 
-
 // Use plugins
-app.use(vuetify)
+app.use(vuetify, message)
 app.use(createPinia())
 app.use(router)
 

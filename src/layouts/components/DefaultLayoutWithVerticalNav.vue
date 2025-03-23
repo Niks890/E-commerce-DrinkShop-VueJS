@@ -61,11 +61,10 @@ const upgradeBanner = computed(() => {
         heading: 'Pages',
       }" />
       <VerticalNavLink :item="{
-        title: 'Login',
-        icon: 'bx-log-in',
-        to: '/login',
+        title: 'Quản lý danh mục',
+        icon: 'bx-list-ul',
+        to: '/category',
       }" />
-
       <VerticalNavLink :item="{
         title: 'Error',
         icon: 'bx-info-circle',
