@@ -1,35 +1,51 @@
 <script setup>
 import avatar1 from '@images/avatars/avatar-1.png';
-import { message } from 'ant-design-vue';
+import { message, Modal } from 'ant-design-vue';
 import Cookies from 'js-cookie';
 import { useRouter } from 'vue-router';
 import api from '../../configs/axios.js';
+import { useUserStore } from '../../stores/userStore';
 
 const router = useRouter();
+const userStore = useUserStore();
 
-import { userName, userRole, getInfoUser } from '../../composables/userAuth.js'
+import { getInfoUser, userName } from '../../composables/userAuth.js';
 getInfoUser();
-
+// console.log('userEmail:', userEmail);
+// console.log('userName:', userName);
 async function logout() {
   try {
     await api.post('/logout');
-
+    // reset state
+    userStore.resetUser();
     // Xóa token khỏi header axios
+    // delete api.defaults.headers.common['Authorization'];
+
     api.defaults.headers.common['Authorization'] = `Bearer ${Cookies.get('access_token')}`;
     // Xóa cookie
     Cookies.remove('access_token');
-    Cookies.remove('role');
-
-    // alert('Đăng xuất thành công!');
     message.success({
       content: 'Đăng xuất thành công!',
       duration: 3,
     });
-    router.push('/login');
+    router.push('/admin-login');
   } catch (error) {
     console.error('Lỗi khi đăng xuất:', error);
   }
 }
+
+
+async function confirmLogout() {
+  Modal.confirm({
+    title: 'Xác nhận đăng xuất',
+    content: 'Bạn có chắc chắn muốn đăng xuất?',
+    zIndex: 2000,
+    async onOk() {
+      await logout(); // Đợi logout hoàn thành trước khi đóng modal
+    },
+  });
+}
+
 </script>
 
 <template>
@@ -55,7 +71,7 @@ async function logout() {
             <VListItemTitle class="font-weight-semibold">
               {{ userName }}
             </VListItemTitle>
-            <VListItemSubtitle>{{ userRole }}</VListItemSubtitle>
+            <!-- <VListItemSubtitle>{{ userEmail }}</VListItemSubtitle> -->
           </VListItem>
           <VDivider class="my-2" />
 
@@ -80,7 +96,7 @@ async function logout() {
           <VDivider class="my-2" />
 
           <!-- 👉 Logout -->
-          <VListItem @click="logout">
+          <VListItem @click="confirmLogout">
             <template #prepend>
               <VIcon class="me-2" icon="bx-log-out" size="22" />
             </template>

@@ -11,7 +11,7 @@ import misc404 from '@images/pages/404.png';
     <!-- 👉 Image -->
     <div class="misc-avatar w-100 text-center">
       <VImg :src="misc404" alt="Coming Soon" :max-width="800" class="mx-auto" />
-      <VBtn to="/" class="mt-10">
+      <VBtn to="/admin/dashboard" class="mt-10">
         Về trang chủ
       </VBtn>
     </div>

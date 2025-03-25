@@ -7,10 +7,9 @@ import router from '@/router'
 import '@core/scss/template/index.scss'
 import '@layouts/styles/index.scss'
 import '@styles/styles.scss'
+import { message } from 'ant-design-vue'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
-
-import { message } from 'ant-design-vue'
 // font
 loadFonts()
 

@@ -52,7 +52,7 @@
 
             <!-- Create account -->
             <VCol cols="12" class="text-center text-base">
-              <RouterLink class="text-primary ms-2 text-decoration-underline" to="/">
+              <RouterLink class="text-primary ms-2 text-decoration-underline" to="/client">
                 Về trang chủ
               </RouterLink>
             </VCol>

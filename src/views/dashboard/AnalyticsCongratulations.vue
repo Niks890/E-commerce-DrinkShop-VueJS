@@ -1,9 +1,8 @@
 <script setup>
-import { useTheme } from 'vuetify'
-import { ref } from 'vue'
-import illustrationJohnDark from '@images/cards/illustration-john-dark.png'
-import illustrationJohnLight from '@images/cards/illustration-john-light.png'
-import { userName, userRole, getInfoUser } from '../../composables/userAuth.js'
+import illustrationJohnDark from '@images/cards/illustration-john-dark.png';
+import illustrationJohnLight from '@images/cards/illustration-john-light.png';
+import { useTheme } from 'vuetify';
+import { getInfoUser, userName } from '../../composables/userAuth.js';
 getInfoUser();
 
 
@@ -20,18 +19,17 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
           <VCardTitle class="text-md-h5 text-primary">
             Xin chào, {{ userName }}!
           </VCardTitle>
+          <span>Chức vụ: .... </span>
         </VCardItem>
 
         <VCardText>
           <span>
-            Role: {{ userRole }}
-            <br>
             Chúc bạn có một ngày tốt lành!
           </span>
           <br>
-          <!-- <VBtn variant="tonal" class="mt-4" size="small">
+          <VBtn variant="tonal" class="mt-4" size="small">
             View Badges
-          </VBtn> -->
+          </VBtn>
         </VCardText>
       </VCol>
 
