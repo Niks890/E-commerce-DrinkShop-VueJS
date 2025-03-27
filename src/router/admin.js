@@ -1,7 +1,7 @@
 const adminRoutes = [
     {
         path: '/admin-login',
-        component: () => import('../pages/login.vue'), // Đưa login ra ngoài layout admin
+        component: () => import('../pages/login.vue'),
     },
     {
         path: '/admin',
@@ -81,7 +81,7 @@ const adminRoutes = [
     },
     {
         path: '/:pathMatch(.*)*',
-        component: () => import('../pages/[...all].vue'),
+        component: () => import('../pages/404-Default.vue'),
     },
 ];
 

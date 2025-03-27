@@ -6,7 +6,7 @@ import { useTheme } from 'vuetify'
 
 // Components
 import Footer from '@/layouts/components/Footer.vue'
-import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
+import NavbarThemeSwitcher from '@/layouts/components/DarkModeAndLightMode.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
 import { useUserStore } from '@/stores/userStore'
 
@@ -16,8 +16,28 @@ const hasRole = role => {
   return userStore.roles?.includes(role) ?? false
 }
 
-
 const vuetifyTheme = useTheme()
+
+// Danh sách menu
+const menuItems = [
+  { type: 'link', title: 'Dashboard', icon: 'bx-home', to: '/admin/dashboard', roles: [] },
+
+  { type: 'section', heading: 'Quản lý Sản phẩm', roles: ['admin', 'manager', 'sale'] },
+  { type: 'link', title: 'Danh mục', icon: 'bx-list-ul', to: '/admin/category', roles: ['admin', 'manager', 'sale'] },
+  { type: 'link', title: 'Sản phẩm', icon: 'bx-box', to: '/admin/product', roles: ['admin', 'manager', 'sale'] },
+
+  { type: 'section', heading: 'Quản lý Bán hàng', roles: ['admin', 'sale', 'manager'] },
+  { type: 'link', title: 'Đơn hàng', icon: 'bx-cart', to: '/admin/order', roles: ['admin', 'sale', 'manager'] },
+  { type: 'link', title: 'Khuyến mãi', icon: 'bx-gift', to: '/admin/discount', roles: ['admin', 'manager'] },
+  { type: 'link', title: 'Doanh Thu', icon: 'bx-package', to: '/admin/revenue', roles: ['admin', 'manager'] },
+
+  { type: 'section', heading: 'Quản lý Kho & nhà cung cấp', roles: ['admin', 'warehouseworker', 'manager'] },
+  { type: 'link', title: 'Nhà cung cấp', icon: 'bx-package', to: '/admin/supplier', roles: ['admin', 'warehouseworker', 'manager'] },
+  { type: 'link', title: 'Kho hàng', icon: 'bx-package', to: '/admin/inventory', roles: ['admin', 'warehouseworker', 'manager'] },
+  { type: 'link', title: 'Nhân viên', icon: 'bx-user', to: '/admin/employee', roles: ['admin', 'manager'] },
+  { type: 'section', heading: 'Khác', roles: ['admin', 'manager'] },
+  { type: 'link', title: 'Đánh giá', icon: 'bx-star', to: '/admin/review', roles: ['admin', 'manager'] },
+]
 </script>
 
 <template>
@@ -25,12 +45,10 @@ const vuetifyTheme = useTheme()
     <!-- 👉 Navbar -->
     <template #navbar="{ toggleVerticalOverlayNavActive }">
       <div class="d-flex h-100 align-center">
-        <!-- 👉 Toggle Menu (Mobile) -->
         <IconBtn class="ms-n3 d-lg-none" @click="toggleVerticalOverlayNavActive(true)">
           <VIcon icon="bx-menu" />
         </IconBtn>
 
-        <!-- 👉 Search -->
         <div class="d-flex align-center cursor-pointer" style="user-select: none;">
           <IconBtn>
             <VIcon icon="bx-search" />
@@ -41,8 +59,6 @@ const vuetifyTheme = useTheme()
         </div>
 
         <VSpacer />
-
-        <!-- 👉 Notifications -->
         <IconBtn class="me-2">
           <VIcon icon="bx-bell" />
         </IconBtn>
@@ -54,45 +70,16 @@ const vuetifyTheme = useTheme()
 
     <!-- 👉 Sidebar Menu -->
     <template #vertical-nav-content>
-      <!-- 🏠 Dashboard -->
-      <VerticalNavLink :item="{ title: 'Dashboard', icon: 'bx-home', to: '/admin/dashboard' }" />
+      <template v-for="item in menuItems" :key="item.title || item.heading">
+        <!-- Render Section Title -->
+        <VerticalNavSectionTitle v-if="item.type === 'section' && item.roles.some(hasRole)"
+          :item="{ heading: item.heading }" />
 
-      <!-- 📌 Quản lý Sản phẩm -->
-      <VerticalNavSectionTitle v-if="hasRole('admin') || hasRole('manager') || hasRole('sale')"
-        :item="{ heading: 'Quản lý Sản phẩm' }" />
-      <VerticalNavLink v-if="hasRole('admin') || hasRole('manager') || hasRole('sale')"
-        :item="{ title: 'Danh mục', icon: 'bx-list-ul', to: '/admin/category' }" />
-      <VerticalNavLink v-if="hasRole('admin') || hasRole('manager') || hasRole('sale')"
-        :item="{ title: 'Sản phẩm', icon: 'bx-box', to: '/admin/product' }" />
-
-      <!-- 📌 Quản lý Bán hàng -->
-      <VerticalNavSectionTitle v-if="hasRole('admin') || hasRole('sale') || hasRole('manager')"
-        :item="{ heading: 'Quản lý Bán hàng' }" />
-      <VerticalNavLink v-if="hasRole('admin') || hasRole('sale') || hasRole('manager')"
-        :item="{ title: 'Đơn hàng', icon: 'bx-cart', to: '/admin/order' }" />
-      <VerticalNavLink v-if="hasRole('admin') || hasRole('manager')"
-        :item="{ title: 'Khuyến mãi', icon: 'bx-gift', to: '/admin/discount' }" />
-      <VerticalNavLink v-if="hasRole('admin') || hasRole('manager')"
-        :item="{ title: 'Doanh Thu', icon: 'bx-package', to: '/admin/revenue' }" />
-
-      <!-- 📌 Quản lý Kho & nhà cung cấp -->
-      <VerticalNavSectionTitle v-if="hasRole('admin') || hasRole('warehouseworker') || hasRole('manager')"
-        :item="{ heading: 'Quản lý Kho & nhà cung cấp' }" />
-      <VerticalNavLink v-if="hasRole('admin') || hasRole('warehouseworker') || hasRole('manager')"
-        :item="{ title: 'Nhà cung cấp', icon: 'bx-package', to: '/admin/supplier' }" />
-      <VerticalNavLink v-if="hasRole('admin') || hasRole('warehouseworker') || hasRole('manager')"
-        :item="{ title: 'Kho hàng', icon: 'bx-package', to: '/admin/inventory' }" />
-
-      <!-- 🔥 Chỉ admin mới thấy Nhân viên -->
-      <VerticalNavLink v-if="hasRole('admin') || hasRole('manager')"
-        :item="{ title: 'Nhân viên', icon: 'bx-user', to: '/admin/employee' }" />
-
-      <!-- 📌 Khác -->
-      <VerticalNavSectionTitle v-if="hasRole('admin') || hasRole('manager')" :item="{ heading: 'Khác' }" />
-      <VerticalNavLink v-if="hasRole('admin') || hasRole('manager')"
-        :item="{ title: 'Đánh giá', icon: 'bx-star', to: '/admin/review' }" />
+        <!-- Render Links -->
+        <VerticalNavLink v-if="item.type === 'link' && (item.roles.length === 0 || item.roles.some(hasRole))"
+          :item="{ title: item.title, icon: item.icon, to: item.to }" />
+      </template>
     </template>
-
 
     <!-- 👉 Main Content -->
     <slot />
